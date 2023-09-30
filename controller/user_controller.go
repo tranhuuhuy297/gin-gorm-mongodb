@@ -2,6 +2,7 @@ package controller
 
 import (
 	"context"
+	"encoding/json"
 	"gin-mongodb/model"
 	"gin-mongodb/response"
 	"gin-mongodb/util"
@@ -58,6 +59,11 @@ func GetUser() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, response.UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: map[string]interface{}{"data": err.Error()}})
 			return
 		}
+
+		// test redis
+		user_obj, err := json.Marshal(user)
+		util.RedisSet(userId, user_obj, 10)
+
 		c.JSON(http.StatusOK, response.UserResponse{Status: http.StatusOK, Message: "success", Data: map[string]interface{}{"data": user}})
 	}
 }
