@@ -9,6 +9,7 @@ import (
 
 func main() {
 	util.LoadEnv()
+	util.ConnectMongo()
 	router := gin.Default()
 
 	router.GET("/", func(c *gin.Context) {
