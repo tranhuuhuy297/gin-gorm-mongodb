@@ -8,18 +8,24 @@ import (
 )
 
 func main() {
+	// init
 	util.LoadEnv()
 	util.ConnectMongo()
-	router := gin.Default()
+	util.ConnectRedis()
 
+	router := gin.Default()
+	endpoint := "localhost:" + util.PORT
+
+	// health check
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"data": "Hello from Gin-gonic & mongoDB",
 		})
 	})
 
+	// add route
 	route.UserRoute(router)
 
-	endpoint := "localhost:" + util.PORT
+	// run server
 	router.Run(endpoint)
 }
