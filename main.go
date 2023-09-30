@@ -1,14 +1,14 @@
 package main
 
 import (
+	"gin-mongodb/route"
 	"gin-mongodb/util"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	util.Load_Env()
-	util.Connect_Mongo()
+	util.LoadEnv()
 	router := gin.Default()
 
 	router.GET("/", func(c *gin.Context) {
@@ -16,6 +16,8 @@ func main() {
 			"data": "Hello from Gin-gonic & mongoDB",
 		})
 	})
+
+	route.UserRoute(router)
 
 	endpoint := "localhost:" + util.PORT
 	router.Run(endpoint)
