@@ -1,5 +1,5 @@
-# gin-mongodb-stater
+# Project stater with Golang and Gin
 
 ```
-nodemon --exec go run main.go
+go run main.go
 ```
